@@ -9,14 +9,14 @@ import pandas as pd
 import pandas_gbq
 import uuid
 import argparse
-from logging import logger
-def my_function():
-    logging.basicConfig(format='%(asctime)s - %(message)s', level=logging.INFO)
-    logger.debug('This is a debug message')
-    logger.info('This is an info message')
-    logger.warning('This is a warning message')
-    logger.error('This is an error message')
-    logger.critical('This is a critical message') 
+# from logging import logger
+# def my_function():
+#     logging.basicConfig(format='%(asctime)s - %(message)s', level=logging.INFO)
+#     logger.debug('This is a debug message')
+#     logger.info('This is an info message')
+#     logger.warning('This is a warning message')
+#     logger.error('This is an error message')
+#     logger.critical('This is a critical message')
 
 # Authenticate and create a BigQuery client
 def create_client(cred_json, project_id):
@@ -26,9 +26,10 @@ def create_client(cred_json, project_id):
 
 
 def load_query(query_name):
-    for script in os.listdir(config.queries):
+    query_folder = os.getcwd() + '\\' + config.queries
+    for script in os.listdir(query_folder):
         if query_name in script:
-            with open(config.queries + '\\' + script, 'r') as script_file:
+            with open(query_folder + '\\' + script, 'r') as script_file:
                 sql_script = script_file.read()
             break
     return sql_script
@@ -152,13 +153,13 @@ def upload_from_local_to_drive(gauth_cred, client_config_file, original_file_pat
     file.SetContentFile(file_path)
     file.Upload()
     
-    #Argparse module
-    import argparse
-    parser = argparse. Argumentarser()
-    parser.add_argument ("--ingestion-date", help="display a square of a given number",
-                        type=str)
-    parser .add_argument ("--reload", , help="display a square of a given number",
-                        type=str)
-    aggs = parser -parse_args()
-    print ("The flow is running for", args. ingestion_date, "with reload =", args.reload, ".
-)
+    # #Argparse module
+    # import argparse
+    # parser = argparse. ArgumentParserarser()
+    # parser.add_argument ("--ingestion-date", help="display a square of a given number",
+    #                     type=str)
+    # parser .add_argument ("--reload", help="display a square of a given number",
+    #                     type=str)
+    # args = parser.parse_args()
+    # print ("The flow is running for", args.ingestion_date, "with reload =", args.reload, ".
+# )
